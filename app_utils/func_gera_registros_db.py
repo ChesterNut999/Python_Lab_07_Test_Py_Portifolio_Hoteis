@@ -2,9 +2,18 @@ import csv
 
 def gera_lista_db():
     '''faz a leitura dos registros das bases de dados'''
+    # DIRETORIOS
+    dir_db_hoteis_aprovados = '/home/Maurilio/PycharmProjects/Python_Lab_07_Test_Py_Portifolio_Hoteis/app_resources/' \
+                              'db_hoteis_aprovados.csv'
+    dir_db_hoteis_reprovados = '/home/Maurilio/PycharmProjects/Python_Lab_07_Test_Py_Portifolio_Hoteis/app_resources/' \
+                               'db_hoteis_reprovados.csv'
+
+    # VARS
     db_registros_totais = []
 
-    with open('../app_resources/db_hoteis_aprovados.csv', 'r', encoding='UTF-8', newline='') as db_hoteis_aprovados:
+    # -----------------------------------------------------------------------------------------------
+
+    with open(dir_db_hoteis_aprovados, 'r', encoding='UTF-8', newline='') as db_hoteis_aprovados:
         csv_reader = csv.reader(db_hoteis_aprovados, delimiter=',')
         csv_reader.__next__()
 
@@ -13,7 +22,7 @@ def gera_lista_db():
 
         db_hoteis_aprovados.close()
 
-    with open('../app_resources/db_hoteis_reprovados.csv', 'r', encoding='UTF-8', newline='') as db_hoteis_reprovados:
+    with open(dir_db_hoteis_reprovados, 'r', encoding='UTF-8', newline='') as db_hoteis_reprovados:
         csv_reader2 = csv.reader(db_hoteis_reprovados, delimiter=',')
         csv_reader2.__next__()
 

@@ -1,31 +1,71 @@
 import csv
+import os
 import runpy
-import app_core.Py_02_ConsultaEcadastra as Py_02
+import time
 
-print('\n---------- SISTEMA DE PORTIFÓLIO DE HOTÉIS ----------')
-print(('-'*60) + "\nMÓDULO RELATÓRIO\n" + ('-'*60))
+import Py_02_ConsultaEcadastro
+import Py_03_PesquisaAvancada
+from app_utils.func_gera_relatorio import gera_relatorio as func_gera_relatorio
 
-gera_ralatorio = input('\nPARA GERAR UM RELATÓRIO DOS CADASTROS REGISTRADOS, DIGITE "G"...'
-                       '\nPARA CONTINUAR PRESSIONE QUALQUER TECLA...'
-                       '\nPRESSIONE UMA TECLA: ')
+# VARS
+escolha_menu1 = None
 
-if gera_ralatorio.upper() == "G":
-    with open('../app_resources/db_hoteis_aprovados.csv', 'r', encoding='UTF-8') as db_hoteis:
-        reader_db = csv.reader(db_hoteis, delimiter=',')
+# DIRETORIOS
+dir_relatorio_cadastros = '/home/Maurilio/PycharmProjects/Python_Lab_07_Test_Py_Portifolio_Hoteis/app_resources/' \
+                          'relatorio_cadastros.csv'
 
-    with open('../app_resources/relatorio_cadastros.csv', 'r', encoding='UTF-8') as relatorio:
-        reader_relatorio = csv.reader(relatorio, delimiter=',')
+# ------------------------------------------------------------------------------------------------
+os.system('clear' or 'cls')
 
-        for row in reader_db:
-            with open('../app_resources/relatorio_cadastros.csv', 'w', newline='', encoding='UTF-8') as relatorio:
-                writer = csv.writer(relatorio, delimiter=',')
-                writer.writerow(row)
+while True:
+    print('\n---------- BEM VINDO AO SISTEMA DE PORTIFÓLIO DE HOTÉIS ----------\n')
 
-            db_hoteis.close()
-            relatorio.close()
-            break
+    print(('-' * 60) + "\nMÓDULO RELATÓRIO\n" + ('-' * 60))
+
+    try:
+        escolha_menu1 = int(input("\nO QUE DESEJA FAZER AGORA?"
+                                 "\n1 - Gerar relatório de todos os registros"
+                                 "\n2 - Acessar Consulta e Cadastro"
+                                 "\n3 - Acessar Pesquisa Avançada"
+                                 "\nDIGITE SUA ESCOLHA: "))
+
+    except BaseException:
+        print(('-' * 60) + '\nIsso não parece ser um valor válido! Tente Novamente.\n' + ('-' * 60))
+        continue
+
+    if escolha_menu1 == 1:
+        gera_relatorio = func_gera_relatorio()
+
+        with open(dir_relatorio_cadastros, 'w', encoding='UTF-8', newline='') as relatorio_cadastros:
+            for i in range(len(gera_relatorio)):
+                csv_writer = csv.writer(relatorio_cadastros, delimiter=',')
+                csv_writer.writerow(gera_relatorio[i])
+
+        relatorio_cadastros.close()
 
         print(('-' * 60) + "\nRelatório de registros gerado com sucesso!\n" + ('-' * 60))
 
-else:
-    runpy.run_module(mod_name=Py_02)
+        time.sleep(3)
+        os.system('clear' or 'cls')
+        continue
+
+    elif escolha_menu1 == 2 or 3:
+        break
+
+    else:
+        print(('-' * 60) + '\nIsso não parece ser um valor válido! Tente Novamente.\n' + ('-' * 60))
+        time.sleep(3)
+        os.system('clear' or 'cls')
+        continue
+
+# -----------------------------------------------------------------------------------------------
+# Carregar e executa outros módulos
+if escolha_menu1 == 2:
+    print(('-' * 60) + '\nCarregando módulo Consulta e Cadastro! Aguarde...\n' + ('-' * 60))
+    time.sleep(3)
+    runpy.run_module(mod_name='Py_02_ConsultaEcadastro')
+
+elif escolha_menu1 == 3:
+    print(('-' * 60) + '\nCarregando módulo Pesquisa Avançada! Aguarde...\n' + ('-' * 60))
+    time.sleep(3)
+    runpy.run_module(mod_name='Py_03_PesquisaAvancada')
