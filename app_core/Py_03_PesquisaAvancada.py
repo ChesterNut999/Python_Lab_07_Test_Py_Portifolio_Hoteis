@@ -1,48 +1,65 @@
 import os
-import runpy
 import time
+from app_utils.func_gera_registros_db import gera_lista_db
 
-import Py_01_GeraRelatorio
-import Py_02_ConsultaEcadastro
+# DIRETORIOS
+dir_db_hoteis_aprovados = '/home/Maurilio/PycharmProjects/Python_Lab_07_Test_Py_Portifolio_Hoteis/app_resources/' \
+                              'db_hoteis_aprovados.csv'
+dir_db_hoteis_reprovados = '/home/Maurilio/PycharmProjects/Python_Lab_07_Test_Py_Portifolio_Hoteis/app_resources' \
+                               '/db_hoteis_reprovados.csv'
 
-# VARS
-escolha_menu3 = None
+def py_03_PesquisaAvancada(escolha_menu3):
+    # VARS
+    global atributo
+    global selecao
 
-# -----------------------------------------------------------------------------------------------
-os.system('clear' or 'cls')
+    while True:
+        if escolha_menu3 == 1:
+            try:
+                atributo = int(input("\nESCOLHA UMA OPÇÃO DE ATRIBUTO PARA PESQUISAR:"
+                               "\n1 - Nome do hotel"
+                               "\n2 - Nível de estrelas"
+                               "\n3 - Telefone com DDD"
+                               "\n4 - Acessibilidade"
+                               "\n5 - Aŕea de lazer"
+                               "\n6 - Atividades Recreativas"
+                               "\nDIGITE SUA ESCOLHA: "))
 
-while True:
-    print('\n---------- BEM VINDO AO SISTEMA DE PORTIFÓLIO DE HOTÉIS ----------\n')
+            except ValueError:
+                print(('-' * 60) + '\nIsso não parece ser um valor válido! Tente Novamente.\n' + ('-' * 60))
+                time.sleep(3)
+                continue
 
-    print(('-'*60) + "\nMÓDULO PESQUISA AVANÇADA\n" + ('-'*60))
+            if atributo == 1:
+                selecao = str(input("\nDIGITE O NOME DO HOTEL: "))
 
-    try:
-        escolha_menu3 = int(input("\nO QUE DESEJA FAZER AGORA?"
-                                 "\n1 - Pesquisar hoteis por atributos (Ex.: Nome, Nível de estrelas, Acessibilidade)"
-                                 "\n2 - Acessar Consulta e Cadastro"
-                                 "\n3 - Acessar Relatorio"
-                                 "\nDIGITE SUA ESCOLHA: "))
+                db_registros_totais = gera_lista_db()
 
-    except BaseException:
-        print(('-' * 60) + '\nIsso não parece ser um valor válido! Tente Novamente.\n' + ('-' * 60))
-        continue
+                # for i in range(len(db_registros_totais)):
+                #     if selecao == db_registros_totais[i]:
+                #         print(("-"*60) + "\nRegistro encontrado:\n" + ("-"*60))
+                #         print(db_registros_totais[i])
+                #         break
 
-    # NÃO IMPLEMENTADO
-    if escolha_menu3 == 1:
-        continue
+                print(('-' * 60) + '\nConsulta realizada com sucesso!.\n' + ('-' * 60))
+                time.sleep(5)
 
-    else:
-        break
+                continue
 
-# -----------------------------------------------------------------------------------------------
-# Carregar e executa outros módulos
-if escolha_menu3 == 2:
-    print(('-' * 60) + '\nCarregando módulo Consulta e Cadastro! Aguarde...\n' + ('-' * 60))
-    time.sleep(3)
-    runpy.run_module(mod_name='Py_02_ConsultaEcadastro')
+            # elif atributo == 2:
+            #
+            # elif atributo == 3:
+            #
+            # elif atributo == 4:
+            #
+            # elif atributo == 5:
+            #
+            # elif atributo == 6:
 
-elif escolha_menu3 == 3:
-    print(('-' * 60) + '\nCarregando módulo Relatório! Aguarde...\n' + ('-' * 60))
-    time.sleep(3)
-    runpy.run_module(mod_name='Py_01_GeraRelatorio')
+            else:
+                print(('-' * 60) + '\nIsso não parece ser um valor válido! Tente Novamente.\n' + ('-' * 60))
+                time.sleep(3)
+                continue
 
+        else:
+            break
