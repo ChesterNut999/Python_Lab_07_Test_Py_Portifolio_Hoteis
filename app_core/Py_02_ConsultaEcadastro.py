@@ -11,6 +11,10 @@ dir_db_hoteis_reprovados = '/home/Maurilio/PycharmProjects/Python_Lab_07_Test_Py
 
 # Consulta
 def py_02_consulta(escolha_menu2):
+    # VARS
+    global consulta
+    global cadastro
+
     while True:
         # Se consulta ou cadastro
         if escolha_menu2 == 1:
@@ -23,15 +27,15 @@ def py_02_consulta(escolha_menu2):
             for i in range(len(db_registros_totais)):
                 if consulta == db_registros_totais[i]:
                     print('HOTEL JÁ CADASTRADO.')
-                    print(('-' * 60) + "\nVocê será redirecionado ao menu principal! Aguarde...\n" + ('-' * 60))
-                    time.sleep(3)
                     break
 
-            if consulta not in db_registros_totais:
-                py_02_cadastro()
+            if consulta in db_registros_totais:
+                print(('-' * 60) + "\nVocê será redirecionado ao menu principal! Aguarde...\n" + ('-' * 60))
+                time.sleep(3)
                 break
 
-            if consulta in db_registros_totais:
+            elif consulta not in db_registros_totais:
+                py_02_cadastro()
                 break
 
         # Se voltar ou prosseguir para outros módulos
@@ -47,7 +51,7 @@ def py_02_consulta(escolha_menu2):
 # Se registro não existir no DB
 def py_02_cadastro():
     # VARS
-    consulta = None
+    global consulta
 
     print(('-' * 60) + '\n' + str(consulta) + " não está na Base de Dados.\n" + ('-' * 60))
 
@@ -85,7 +89,7 @@ def py_02_cadastro():
                     print(('-' * 60) + "\nCadastro realizado com sucesso!\n" + ('-' * 60))
 
                     time.sleep(3)
-                    os.system('clear') if os.name == 'posix' == 'posix' else os.system('cls')
+                    os.system('clear' or 'cls')
 
                 break
 
@@ -93,9 +97,9 @@ def py_02_cadastro():
             elif int(novo_registro[1]) <= 3 and novo_registro[3].upper() == "N":
                 print(novo_registro[0] + " não está qualificado como apto.\n" + ('-' * 60))
 
-                desqualificado = str.upper(input("\nDESEJA PROSSEGUIR COM O REGISTRO MESMO ASSIM? DIGITE S/N: "))
+                desqualificado = input("\nDESEJA PROSSEGUIR COM O REGISTRO MESMO ASSIM? DIGITE S/N: ")
 
-                if desqualificado == "S":
+                if desqualificado.upper() == "S":
                     with open(dir_db_hoteis_reprovados, 'a', newline='', encoding='UTF-8') as db_hoteis_reprovados:
                         writer = csv.writer(db_hoteis_reprovados, delimiter=',')
                         writer.writerow(novo_registro)
@@ -104,14 +108,15 @@ def py_02_cadastro():
                         print(('-' * 60) + "\nCadastro realizado com sucesso!\n" + ('-' * 60))
 
                         time.sleep(3)
-                        os.system('clear') if os.name == 'posix' == 'posix' else os.system('cls')
+                        os.system('clear' or 'cls')
 
                     break
 
-                elif desqualificado == "N":
+                elif desqualificado.upper() == "N":
                     print(('-' * 60) + "\nVocê será redirecionado ao menu de cadastro! Aguarde...\n" + ('-' * 60))
+
                     time.sleep(3)
-                    os.system('clear') if os.name == 'posix' == 'posix' else os.system('cls')
+                    os.system('clear' or 'cls')
 
                     continue
 
@@ -119,9 +124,9 @@ def py_02_cadastro():
             else:
                 print(novo_registro[0] + " não está qualificado como apto.\n" + ('-' * 60))
 
-                desqualificado = str.upper(input("\nDESEJA PROSSEGUIR COM O REGISTRO MESMO ASSIM? DIGITE S/N: "))
+                desqualificado = input("\nDESEJA PROSSEGUIR COM O REGISTRO MESMO ASSIM? DIGITE S/N: ")
 
-                if desqualificado == "S":
+                if desqualificado.upper() == "S":
                     with open(dir_db_hoteis_reprovados, 'a', newline='', encoding='UTF-8') as db_hoteis_reprovados:
                         writer = csv.writer(db_hoteis_reprovados, delimiter=',')
                         writer.writerow(novo_registro)
@@ -130,23 +135,22 @@ def py_02_cadastro():
                         print(('-' * 60) + "\nCadastro realizado com sucesso!\n" + ('-' * 60))
                         time.sleep(3)
                         os.system('clear' or 'cls')
+
                     break
 
-                elif desqualificado == "N":
+                elif desqualificado.upper() == "N":
                     print(('-' * 60) + "\nVocê será redirecionado ao menu de cadastro! Aguarde...\n" + ('-' * 60))
                     time.sleep(3)
-                    os.system('clear') if os.name == 'posix' == 'posix' else os.system('cls')
+                    os.system('clear' or 'cls')
 
                     break
 
         elif novo_registro_dec == "N":
             print(('-' * 60) + "\nVocê será redirecionado ao menu principal! Aguarde...\n" + ('-' * 60))
             time.sleep(3)
-
             break
 
         else:
             print(('-' * 60) + '\nIsso não parece ser um valor válido! Tente Novamente.\n' + ('-' * 60))
             time.sleep(3)
-
             continue

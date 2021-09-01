@@ -94,8 +94,8 @@ if __name__ == '__main__':
                 elif escolha_menu2 == 3:
                     print(('-' * 60) + '\nCarregando módulo Pesquisa Avançada! Aguarde...\n' + ('-' * 60))
                     time.sleep(3)
-                    py_01_marcacao = False
                     py_03_marcacao = True
+                    py_01_marcacao = False
                     break
 
                 else:

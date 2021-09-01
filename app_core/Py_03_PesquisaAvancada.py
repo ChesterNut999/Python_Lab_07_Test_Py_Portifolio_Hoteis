@@ -44,7 +44,7 @@ def py_03_PesquisaAvancada(escolha_menu3):
                 print(('-' * 60) + '\nConsulta realizada com sucesso!.\n' + ('-' * 60))
                 time.sleep(5)
 
-                continue
+                break
 
             # elif atributo == 2:
             #
@@ -60,6 +60,3 @@ def py_03_PesquisaAvancada(escolha_menu3):
                 print(('-' * 60) + '\nIsso não parece ser um valor válido! Tente Novamente.\n' + ('-' * 60))
                 time.sleep(3)
                 continue
-
-        else:
-            break
